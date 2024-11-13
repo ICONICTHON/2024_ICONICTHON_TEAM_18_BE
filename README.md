@@ -1,0 +1,2 @@
+# 2024_ICONICTHON_TEAM_18_BE
+2024 동국대학교 아코톤 18팀 SERVER 입니다.
