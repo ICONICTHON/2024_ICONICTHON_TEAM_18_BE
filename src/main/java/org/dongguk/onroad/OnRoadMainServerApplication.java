@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import java.util.TimeZone;
 
 @EnableAsync
-@EnableJpaRepositories(basePackages = "org.dongguk.onroad.*.repository.mysql")
+@EnableJpaRepositories(basePackages = "org.dongguk.onroad.*.repository")
 @SpringBootApplication
 public class OnRoadMainServerApplication {
     @PostConstruct

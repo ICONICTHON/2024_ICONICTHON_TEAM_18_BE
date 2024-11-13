@@ -19,7 +19,7 @@ import java.util.UUID;
         name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "uk_accounts_serial_id",
+                        name = "uk_users_serial_id",
                         columnNames = {"serial_id"}
                 )
         }
@@ -48,13 +48,19 @@ public class User {
     @Column(name = "password", length = 320, nullable = false)
     private String password;
 
-    @Column(name = "name", length = 20, nullable = false)
-    private String name;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private ESecurityRole role;
 
+    /* -------------------------------------------- */
+    /* Information Column ------------------------- */
+    /* -------------------------------------------- */
+    @Column(name = "name", length = 20, nullable = false)
+    private String name;
+
+    /* -------------------------------------------- */
+    /* Timestamp Column --------------------------- */
+    /* -------------------------------------------- */
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
