@@ -36,7 +36,7 @@ public class RoadmapCommandV1Controller {
         return ResponseDto.created(null);
     }
 
-    @PostMapping(value = "/roadmaps/lectures/{lectureId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/roadmaps/lectures/{lectureId}", consumes = {MediaType.APPLICATION_PDF_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseDto<?> createRoadmap(
             @UserID UUID userId,
             @PathVariable Long lectureId,

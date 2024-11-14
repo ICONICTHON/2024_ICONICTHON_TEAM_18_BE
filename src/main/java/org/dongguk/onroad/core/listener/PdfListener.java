@@ -21,6 +21,7 @@ public class PdfListener {
     @Async
     @EventListener(classes = {PdfEvent.class})
     public void handlePdfEvent(PdfEvent event) {
+        log.info("publish pdf event to kafka");
         kafkaTemplate.send(Constants.SUMMARY_REQUEST_TOPIC, event.toPayload());
     }
 }
