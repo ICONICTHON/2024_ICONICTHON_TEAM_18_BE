@@ -24,7 +24,7 @@ public class CheckPoint {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(name = "content", length = 500, nullable = false)
+    @Column(name = "content", length = 2080, nullable = false)
     private String content;
 
     /* -------------------------------------------- */

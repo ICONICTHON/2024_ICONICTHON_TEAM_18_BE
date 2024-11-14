@@ -26,10 +26,10 @@ public class Section {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(name = "title", length = 200, nullable = false)
+    @Column(name = "title", length = 2080, nullable = false)
     private String title;
 
-    @Column(name = "description", length = 500, nullable = false)
+    @Column(name = "description", length = 2080, nullable = false)
     private String description;
 
     /* -------------------------------------------- */

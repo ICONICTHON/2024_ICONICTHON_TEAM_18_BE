@@ -50,7 +50,7 @@ Authorization: Bearer {{access_token}}
 Content-Disposition: form-data; name="file"; filename="pdf1.pdf"
 Content-Type: application/pdf
 
-< /Users/jjuuuunnii/Desktop/2019112552_강승준.pdf
+< /Users/jjuuuunnii/Desktop/Lecture4_AI.pdf
 
 --boundary
 

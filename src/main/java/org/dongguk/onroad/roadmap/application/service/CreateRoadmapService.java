@@ -3,6 +3,7 @@ package org.dongguk.onroad.roadmap.application.service;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.onroad.core.exception.error.ErrorCode;
 import org.dongguk.onroad.core.exception.type.CommonException;
+import org.dongguk.onroad.core.utility.S3Util;
 import org.dongguk.onroad.roadmap.application.event.PdfEvent;
 import org.dongguk.onroad.roadmap.application.usecase.CreateRoadmapUseCase;
 import org.dongguk.onroad.roadmap.domain.Lecture;
@@ -28,6 +29,8 @@ public class CreateRoadmapService implements CreateRoadmapUseCase {
     private final WeekRepository weekRepository;
     private final LectureRepository lectureRepository;
 
+    private final S3Util s3Util;
+
     @Override
     @Transactional
     public void execute(UUID userId, Long lectureId, MultipartFile file) {
@@ -46,10 +49,12 @@ public class CreateRoadmapService implements CreateRoadmapUseCase {
            lecture.updateStatus(EStatus.LOADING);
         }
 
+        String uploadFileUrl = s3Util.upload(file);
+
         applicationEventPublisher.publishEvent(
                 PdfEvent.builder()
                         .lectureId(lectureId)
-                        .file(file)
+                        .fileName(uploadFileUrl)
                         .build()
         );
     }

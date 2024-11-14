@@ -12,6 +12,10 @@ public record CreateRoadmapDetailsKafkaResponseDto(
         @JsonProperty("lecture_id")
         Long lectureId,
 
+        @NotNull(message = "파일 이름은 필수 입력 값입니다.")
+        @JsonProperty("file_url")
+        String fileUrl,
+
         @NotNull(message = "제목은 필수 입력 값입니다.")
         @Size(max = 255, message = "제목은 최대 255자까지 입력 가능합니다.")
         @JsonProperty("title")

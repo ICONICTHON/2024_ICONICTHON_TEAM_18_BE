@@ -23,10 +23,10 @@ public class Week {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", length = 200, nullable = false)
+    @Column(name = "title", length = 2080, nullable = false)
     private String title;
 
-    @Column(name = "overall_summary", length = 500, nullable = false)
+    @Column(name = "overall_summary", length = 2080, nullable = false)
     private String overallSummary;
 
     @Column(name = "week_index", nullable = false)

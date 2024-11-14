@@ -27,4 +27,32 @@ public class S3Util {
     @Value("${cloud.aws.s3.url}")
     private String bucketUrl;
 
+    public String upload(MultipartFile file) {
+
+        String fileName = UUID.randomUUID().toString();
+        String fileUrl = bucketUrl + fileName;
+
+        try {
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(file.getContentType());
+            objectMetadata.setContentLength(file.getSize());
+
+            amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, file.getInputStream(), objectMetadata));
+        } catch (SdkClientException | IOException e) {
+            throw new CommonException(ErrorCode.UPLOAD_FILE_ERROR);
+        }
+
+        return fileUrl;
+    }
+
+
+    public void deleteFile(String fileUrl) {
+        try {
+            String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+            amazonS3Client.deleteObject(bucketName, fileName);
+        } catch (SdkClientException e) {
+            throw new CommonException(ErrorCode.UPLOAD_FILE_ERROR);
+        }
+    }
+
 }
