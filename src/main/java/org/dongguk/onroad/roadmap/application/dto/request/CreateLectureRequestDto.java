@@ -12,10 +12,6 @@ public record CreateLectureRequestDto(
         @JsonProperty("title")
         String title,
 
-        @NotNull(message = "연도는 필수 입력 값입니다.")
-        @JsonProperty("year")
-        Integer year,
-
         @NotNull(message = "학기는 필수 입력 값입니다.")
         @JsonProperty("semester")
         ESemester semester

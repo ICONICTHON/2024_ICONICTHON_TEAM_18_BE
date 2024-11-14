@@ -22,7 +22,7 @@ public class ReadLectureBriefResponseDto extends SelfValidating<ReadLectureBrief
     }
 
     @Getter
-    public static class LectureDto {
+    public static class LectureDto extends SelfValidating<LectureDto> {
 
         @NotNull(message = "id는 null일 수 없습니다.")
         private final Long id;
@@ -38,6 +38,8 @@ public class ReadLectureBriefResponseDto extends SelfValidating<ReadLectureBrief
             this.id = id;
             this.title = title;
             this.status = status;
+
+            this.validateSelf();
         }
 
         public static LectureDto fromEntity(Lecture lecture) {

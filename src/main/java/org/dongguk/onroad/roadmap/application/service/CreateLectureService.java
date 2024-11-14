@@ -17,6 +17,7 @@ import org.dongguk.onroad.security.repository.mysql.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -42,9 +43,10 @@ public class CreateLectureService implements CreateLectureUseCase {
 
         Lecture lecture = lectureService.createLecture(
                 requestDto.title(),
-                requestDto.year(),
+                LocalDate.now().getYear(),
                 requestDto.semester()
         );
+
         lectureRepository.save(lecture);
 
         UserLecture userLecture = userLectureService.createUserLecture(lecture, user);
