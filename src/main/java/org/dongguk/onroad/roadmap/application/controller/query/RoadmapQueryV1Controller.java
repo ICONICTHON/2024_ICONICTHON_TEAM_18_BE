@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.dongguk.onroad.core.annotation.security.UserID;
 import org.dongguk.onroad.core.dto.ResponseDto;
 import org.dongguk.onroad.roadmap.application.dto.response.ReadLectureBriefResponseDto;
+import org.dongguk.onroad.roadmap.application.dto.response.ReadRoadmapResponseDto;
 import org.dongguk.onroad.roadmap.application.usecase.ReadLectureBriefUseCase;
 import org.dongguk.onroad.roadmap.application.usecase.ReadLectureOverviewUseCase;
+import org.dongguk.onroad.roadmap.application.usecase.ReadRoadmapUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +21,7 @@ public class RoadmapQueryV1Controller {
 
     private final ReadLectureBriefUseCase readLectureBriefUseCase;
     private final ReadLectureOverviewUseCase readLectureOverviewUseCase;
+    private final ReadRoadmapUseCase readRoadmapUseCase;
 
     @GetMapping("/v1/lectures/briefs")
     public ResponseDto<ReadLectureBriefResponseDto> readLectureBrief(
@@ -39,5 +43,12 @@ public class RoadmapQueryV1Controller {
                         userId
                 )
         );
+    }
+
+    @GetMapping("/v1/lectures/{id}/roadmaps")
+    public ResponseDto<ReadRoadmapResponseDto> readRoadmap(
+            @PathVariable Long id
+    ) {
+        return ResponseDto.ok(readRoadmapUseCase.execute(id));
     }
 }

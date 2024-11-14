@@ -9,6 +9,8 @@ import org.dongguk.onroad.roadmap.domain.Lecture;
 import org.dongguk.onroad.security.domain.mysql.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
@@ -55,6 +57,12 @@ public class Question {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private User student;
+
+    /* -------------------------------------------- */
+    /* One To Many Attribute ---------------------- */
+    /* -------------------------------------------- */
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replies = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */

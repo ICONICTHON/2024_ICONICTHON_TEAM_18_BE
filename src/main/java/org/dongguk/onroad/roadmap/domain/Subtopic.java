@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "subtopics")
@@ -42,6 +44,12 @@ public class Subtopic {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id", nullable = false)
     private Section section;
+
+    /* -------------------------------------------- */
+    /* One To Many Attribute ---------------------- */
+    /* -------------------------------------------- */
+    @OneToMany(mappedBy = "subtopic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CheckPoint> checkPoints = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */

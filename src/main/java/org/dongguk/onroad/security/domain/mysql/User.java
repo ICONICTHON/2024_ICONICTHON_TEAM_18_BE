@@ -5,11 +5,16 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.dongguk.onroad.question.domain.Question;
+import org.dongguk.onroad.question.domain.Reply;
+import org.dongguk.onroad.roadmap.domain.UserChoice;
 import org.dongguk.onroad.security.domain.type.ESecurityProvider;
 import org.dongguk.onroad.security.domain.type.ESecurityRole;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -63,6 +68,18 @@ public class User {
     /* -------------------------------------------- */
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    /* -------------------------------------------- */
+    /* One To Many Attribute ---------------------- */
+    /* -------------------------------------------- */
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserChoice> userChoices = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Question> questions = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */

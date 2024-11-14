@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sections")
@@ -24,9 +26,6 @@ public class Section {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(name = "week_index", nullable = false)
-    private Integer weekIndex;
-
     @Column(name = "title", length = 200, nullable = false)
     private String title;
 
@@ -47,11 +46,16 @@ public class Section {
     private Week week;
 
     /* -------------------------------------------- */
+    /* One To Many Attribute ---------------------- */
+    /* -------------------------------------------- */
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subtopic> subtopics = new ArrayList<>();
+
+    /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Section(Integer weekIndex, String title, String description, Week week) {
-        this.weekIndex = weekIndex;
+    public Section(String title, String description, Week week) {
         this.title = title;
         this.description = description;
         this.week = week;

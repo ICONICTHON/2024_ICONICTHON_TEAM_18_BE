@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.onroad.security.domain.mysql.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "user_choices")
 @Getter
