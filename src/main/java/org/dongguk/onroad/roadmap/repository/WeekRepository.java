@@ -18,4 +18,6 @@ public interface WeekRepository extends JpaRepository<Week, Long> {
 
     @Query("SELECT w FROM Week w WHERE w.lecture.id = :lectureId")
     List<Week> findAllByLectureId(@Param("lectureId") Long lectureId);
+
+    int countByLecture(Lecture lecture);
 }

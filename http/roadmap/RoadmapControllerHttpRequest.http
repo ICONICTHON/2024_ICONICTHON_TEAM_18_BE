@@ -25,3 +25,31 @@ Authorization: Bearer {{access_token}}
 //@no-log
 GET {{host_url}}/v1/subtopics/1/check-points/quizzes/choices/summaries
 Authorization: Bearer {{access_token}}
+
+
+### 강의 생성하기
+//@no-log
+POST {{host_url}}/v1/lectures
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "title" : "{{roadmap.API_3_7.title}}",
+  "year": {{roadmap.API_3_7.year}},
+  "semester": "{{roadmap.API_3_7.semester}}"
+}
+
+
+### pdf 등록하기
+//@no-log
+POST {{host_url}}/v1/roadmaps/lectures/{{roadmap.API_3_8.lectureId}}
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer {{access_token}}
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="pdf1.pdf"
+Content-Type: application/pdf
+
+< /Users/jjuuuunnii/Desktop/2019112552_강승준.pdf
+
+--boundary
