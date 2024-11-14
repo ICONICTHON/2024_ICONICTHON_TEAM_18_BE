@@ -8,7 +8,9 @@ import org.dongguk.onroad.core.exception.type.CommonException;
 import org.dongguk.onroad.core.utility.HeaderUtil;
 import org.dongguk.onroad.security.application.dto.request.SignUpRequestDto;
 import org.dongguk.onroad.security.application.dto.response.DefaultJsonWebTokenDto;
+import org.dongguk.onroad.security.application.dto.response.ReadUserBriefResponseDto;
 import org.dongguk.onroad.security.application.usecase.DeleteUserUseCase;
+import org.dongguk.onroad.security.application.usecase.ReadUserBriefUseCase;
 import org.dongguk.onroad.security.application.usecase.ReissueJsonWebTokenUseCase;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,11 +29,12 @@ public class AuthController {
     private final SignUpUseCase signUpUseCase;
     private final ReissueJsonWebTokenUseCase reissueJsonWebTokenUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
+    private final ReadUserBriefUseCase readUserBriefUseCase;
 
     /**
-     * 1.3 JWT 재발급
+     * JWT 재발급
      */
-    @PostMapping("/api/v1/auth/reissue/token")
+    @PostMapping("/v1/auth/reissue/token")
     public ResponseDto<DefaultJsonWebTokenDto> reissueDefaultJsonWebToken(
             HttpServletRequest request
     ) {
@@ -42,9 +45,9 @@ public class AuthController {
     }
 
     /**
-     * 2.1 일반 회원가입
+     * 일반 회원가입
      */
-    @PostMapping("/api/v1/auth/sign-up")
+    @PostMapping("/v1/auth/sign-up")
     public ResponseDto<Void> signUp(
             @RequestBody @Valid SignUpRequestDto requestDto
             ) {
@@ -53,9 +56,19 @@ public class AuthController {
     }
 
     /**
-     * 2.2 회원 탈퇴
+     * 유저 정보 조회하기
      */
-    @DeleteMapping("/api/v1/auth")
+    @GetMapping("/v1/auth/briefs")
+    public ResponseDto<ReadUserBriefResponseDto> readUserBrief(
+            @UserID UUID userId
+    ) {
+        return ResponseDto.ok(readUserBriefUseCase.execute(userId));
+    }
+
+    /**
+     * 회원 탈퇴
+     */
+    @DeleteMapping("/v1/auth")
     public ResponseDto<?> deleteAccount(
             @UserID UUID userId
     ) {
