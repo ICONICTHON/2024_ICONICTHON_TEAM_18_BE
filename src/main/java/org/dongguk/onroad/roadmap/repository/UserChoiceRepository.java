@@ -25,5 +25,4 @@ public interface UserChoiceRepository extends JpaRepository<UserChoice, Long> {
         int getTotalQuizzes();
         int getAttemptedQuizzes();
     }
-
 }
