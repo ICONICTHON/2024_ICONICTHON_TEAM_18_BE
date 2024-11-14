@@ -5,7 +5,7 @@ Authorization: Bearer {{access_token}}
 
 ### 4.2 답변 리스트 조회하기
 //@no-log
-GET {{host_url}}/v1/questions/2/replies
+GET {{host_url}}/v1/questions/3/replies
 Authorization: Bearer {{access_token}}
 
 
@@ -20,4 +20,14 @@ Content-Type: application/json
     "week": 1,
     "title": "질문 제목",
     "content": "질문 내용"
+}
+
+### 4.4 답변 등록하기
+//@no-log
+POST {{host_url}}/v1/questions/3/replies
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "content": "답변 내용"
 }

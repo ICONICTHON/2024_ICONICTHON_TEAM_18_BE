@@ -46,9 +46,17 @@ public class ReadReplyResponseDto extends SelfValidating<ReadReplyResponseDto> {
             this.validateSelf();
         }
 
-        public static ReplyDto fromEntity(Reply reply) {
+        public static ReplyDto fromEntityProfessor(Reply reply) {
             return ReplyDto.builder()
                     .writerName(reply.getUser().getName())
+                    .createdAt(DateTimeUtil.convertLocalDateTimeToString(reply.getCreatedAt()))
+                    .content(reply.getContent())
+                    .build();
+        }
+
+        public static ReplyDto fromEntityStudent(Reply reply) {
+            return ReplyDto.builder()
+                    .writerName("anonymous")
                     .createdAt(DateTimeUtil.convertLocalDateTimeToString(reply.getCreatedAt()))
                     .content(reply.getContent())
                     .build();

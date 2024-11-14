@@ -77,9 +77,18 @@ public class ReadQuestionResponseDto extends SelfValidating<ReadQuestionResponse
             this.validateSelf();
         }
 
-        public static QuestionInfoDto fromEntity(Question question) {
+        public static QuestionInfoDto fromEntityProfessor(Question question) {
             return QuestionInfoDto.builder()
                     .writerName(question.getStudent().getName())
+                    .createdAt(DateTimeUtil.convertLocalDateTimeToString(question.getCreatedAt()))
+                    .title(question.getTitle())
+                    .content(question.getContent())
+                    .build();
+        }
+
+        public static QuestionInfoDto fromEntityStudent(Question question) {
+            return QuestionInfoDto.builder()
+                    .writerName("annoymous")
                     .createdAt(DateTimeUtil.convertLocalDateTimeToString(question.getCreatedAt()))
                     .title(question.getTitle())
                     .content(question.getContent())
