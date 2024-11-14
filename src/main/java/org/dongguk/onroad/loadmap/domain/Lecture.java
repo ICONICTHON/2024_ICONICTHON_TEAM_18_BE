@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.onroad.loadmap.domain.type.ESemester;
+import org.dongguk.onroad.loadmap.domain.type.EStatus;
 
 import java.time.LocalDateTime;
 
@@ -25,15 +26,19 @@ public class Lecture {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(length = 50, nullable = false)
+    @Column(name = "title", length = 50, nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "year", nullable = false)
     private Integer year;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "semester", nullable = false)
     private ESemester semester;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private EStatus status = EStatus.PENDING;
 
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
@@ -50,6 +55,10 @@ public class Lecture {
         this.year = year;
         this.semester = semester;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void updateStatus(EStatus status) {
+        this.status = status;
     }
 }
 
