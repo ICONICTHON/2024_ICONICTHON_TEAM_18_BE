@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dongguk.onroad.core.exception.error.ErrorCode;
 import org.dongguk.onroad.core.exception.type.CommonException;
+import org.dongguk.onroad.core.utility.S3Util;
 import org.dongguk.onroad.roadmap.application.dto.kafka.CreateRoadmapDetailsKafkaResponseDto;
 import org.dongguk.onroad.roadmap.application.usecase.CreateRoadmapDetailsUseCase;
 import org.dongguk.onroad.roadmap.domain.*;
@@ -27,6 +28,7 @@ public class CreateRoadmapDetailsService implements CreateRoadmapDetailsUseCase 
     private final WeekService weekService;
     private final SectionService sectionService;
     private final SubtopicService subtopicService;
+    private final S3Util s3Util;
 
     @Override
     @Transactional
@@ -65,6 +67,8 @@ public class CreateRoadmapDetailsService implements CreateRoadmapDetailsUseCase 
 
         lecture.updateStatus(EStatus.COMPLETED);
         lectureRepository.save(lecture);
+
+        s3Util.deleteFile(responseDto.fileUrl());
     }
 
     private Week createWeek(Lecture lecture, String title, String overallSummary) {

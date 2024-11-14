@@ -33,7 +33,7 @@ public class KafkaConfig {
         Map<String, Object> configProps = new HashMap<>();
 
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        configProps.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, 31_457_280);
+        configProps.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, 52_428_800);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 
@@ -50,6 +50,8 @@ public class KafkaConfig {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
         props.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, 52_428_800);
+        props.put(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG, 52_428_800);  // 50MB
+
         JsonDeserializer<Map<String, Object>> deserializer = new JsonDeserializer<>(Map.class, false);
 
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), deserializer);
