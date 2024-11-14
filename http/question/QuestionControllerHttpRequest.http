@@ -7,3 +7,17 @@ Authorization: Bearer {{access_token}}
 //@no-log
 GET {{host_url}}/v1/questions/2/replies
 Authorization: Bearer {{access_token}}
+
+
+### 4.3 질문 등록하기
+//@no-log
+POST {{host_url}}/v1/questions
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "lecture_id": 1,
+    "week": 1,
+    "title": "질문 제목",
+    "content": "질문 내용"
+}

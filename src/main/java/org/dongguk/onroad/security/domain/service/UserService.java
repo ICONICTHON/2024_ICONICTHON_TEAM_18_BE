@@ -1,5 +1,7 @@
 package org.dongguk.onroad.security.domain.service;
 
+import org.dongguk.onroad.core.exception.error.ErrorCode;
+import org.dongguk.onroad.core.exception.type.CommonException;
 import org.dongguk.onroad.security.domain.mysql.User;
 import org.dongguk.onroad.security.domain.type.ESecurityRole;
 import org.dongguk.onroad.security.info.CustomUserPrincipal;
@@ -28,13 +30,13 @@ public class UserService {
 
     public void validateStudent(User user) {
         if (!user.getRole().equals(ESecurityRole.STUDENT)) {
-            throw new IllegalArgumentException("유저의 권한이 학생이 아닙니다.");
+            throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
     }
 
     public void validateProfessor(User user) {
         if (!user.getRole().equals(ESecurityRole.PROFESSOR)) {
-            throw new IllegalArgumentException("유저의 권한이 교수가 아닙니다.");
+            throw new CommonException(ErrorCode.ACCESS_DENIED);
         }
     }
 }
