@@ -7,6 +7,7 @@ import org.dongguk.onroad.roadmap.application.dto.response.ReadLectureBriefRespo
 import org.dongguk.onroad.roadmap.application.usecase.ReadLectureBriefUseCase;
 import org.dongguk.onroad.roadmap.domain.Lecture;
 import org.dongguk.onroad.roadmap.domain.UserLecture;
+import org.dongguk.onroad.roadmap.domain.type.EStatus;
 import org.dongguk.onroad.roadmap.repository.UserLectureRepository;
 import org.dongguk.onroad.security.domain.mysql.User;
 import org.dongguk.onroad.security.repository.mysql.UserRepository;
@@ -37,6 +38,7 @@ public class ReadLectureBriefService implements ReadLectureBriefUseCase {
         // 강의 객체 리스트 조회
         List<Lecture> lectureList = userLecture.stream()
                 .map(UserLecture::getLecture)
+                .filter(lecture -> lecture.getStatus() == EStatus.COMPLETED)
                 .toList();
 
         return ReadLectureBriefResponseDto.fromEntities(lectureList);

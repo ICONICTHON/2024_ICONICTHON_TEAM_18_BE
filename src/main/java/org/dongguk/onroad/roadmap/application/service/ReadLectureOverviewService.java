@@ -8,6 +8,7 @@ import org.dongguk.onroad.roadmap.application.usecase.ReadLectureOverviewUseCase
 import org.dongguk.onroad.roadmap.domain.Lecture;
 import org.dongguk.onroad.roadmap.domain.UserLecture;
 import org.dongguk.onroad.roadmap.domain.Week;
+import org.dongguk.onroad.roadmap.domain.type.EStatus;
 import org.dongguk.onroad.roadmap.repository.UserChoiceRepository;
 import org.dongguk.onroad.roadmap.repository.UserLectureRepository;
 import org.dongguk.onroad.roadmap.repository.WeekRepository;
@@ -48,6 +49,7 @@ public class ReadLectureOverviewService implements ReadLectureOverviewUseCase {
         };
 
         List<ReadLectureOverviewResponseDto.LectureOverview> lectureOverviewList = userLectures.stream()
+                .filter(userLecture -> userLecture.getLecture().getStatus().equals(EStatus.COMPLETED))
                 .map(userLecture -> {
                     Lecture lecture = userLecture.getLecture();
 
