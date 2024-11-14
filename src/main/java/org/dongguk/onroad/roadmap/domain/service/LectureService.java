@@ -19,7 +19,8 @@ public class LectureService {
     }
 
     public void validateLecture(Lecture lecture) {
-        if (lecture.getStatus() == EStatus.PENDING)
+        if (lecture.getStatus() == EStatus.EMPTY) {
             throw new CommonException(ErrorCode.INVALID_ARGUMENT);
+        }
     }
 }

@@ -1,7 +1,7 @@
 package org.dongguk.onroad.roadmap.application.usecase;
 
 import org.dongguk.onroad.core.annotation.bean.UseCase;
-import org.dongguk.onroad.roadmap.application.dto.request.ReadLectureOverviewResponseDto;
+import org.dongguk.onroad.roadmap.application.dto.response.ReadLectureOverviewResponseDto;
 
 import java.util.UUID;
 

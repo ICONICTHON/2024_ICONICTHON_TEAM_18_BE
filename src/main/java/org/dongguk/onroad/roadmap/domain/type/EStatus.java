@@ -7,8 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EStatus {
 
-    PENDING("대기중"),
-    COMPLETED("완료"),
+    EMPTY("파일이 존재하지 않음"),
+    LOADING("파일 업로드중"),
+    COMPLETED("조회가능상태"),
 
     ;
 
@@ -16,8 +17,9 @@ public enum EStatus {
 
     public static EStatus fromString(String status) {
         return switch (status) {
-            case "대기중" -> PENDING;
-            case "완료" -> COMPLETED;
+            case "EMPTY" -> EMPTY;
+            case "LOADING" -> LOADING;
+            case "COMPLETED" -> COMPLETED;
             default -> throw new IllegalArgumentException("Invalid Status: " + status);
         };
     }

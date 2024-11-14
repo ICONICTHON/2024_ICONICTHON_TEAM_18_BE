@@ -30,16 +30,21 @@ public class ReadLectureBriefResponseDto extends SelfValidating<ReadLectureBrief
         @NotNull(message = "title은 null일 수 없습니다.")
         private final String title;
 
+        @NotNull(message = "status는 null일 수 없습니다.")
+        private final String status;
+
         @Builder
-        public LectureDto(Long id, String title) {
+        public LectureDto(Long id, String title, String status) {
             this.id = id;
             this.title = title;
+            this.status = status;
         }
 
         public static LectureDto fromEntity(Lecture lecture) {
             return LectureDto.builder()
                     .id(lecture.getId())
                     .title(lecture.getTitle())
+                    .status(lecture.getStatus().toString())
                     .build();
         }
     }

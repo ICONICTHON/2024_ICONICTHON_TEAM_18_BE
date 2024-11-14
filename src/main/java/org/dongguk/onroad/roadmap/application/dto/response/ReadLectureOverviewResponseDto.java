@@ -1,4 +1,4 @@
-package org.dongguk.onroad.roadmap.application.dto.request;
+package org.dongguk.onroad.roadmap.application.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
@@ -58,6 +58,9 @@ public class ReadLectureOverviewResponseDto extends SelfValidating<ReadLectureOv
         @JsonProperty("title")
         private final String title;
 
+        @NotNull(message = "status는 null일 수 없습니다.")
+        private final String status;
+
         @NotNull(message = "professor_name은 null일 수 없습니다.")
         @JsonProperty("professor_name")
         private final String professorName;
@@ -70,9 +73,17 @@ public class ReadLectureOverviewResponseDto extends SelfValidating<ReadLectureOv
         private final Integer progressRate;
 
         @Builder
-        public LectureOverview(Long id, String title, String professorName, Integer currentWeek, Integer progressRate) {
+        public LectureOverview(
+                Long id,
+                String title,
+                String status,
+                String professorName,
+                Integer currentWeek,
+                Integer progressRate
+        ) {
             this.id = id;
             this.title = title;
+            this.status = status;
             this.professorName = professorName;
             this.currentWeek = currentWeek;
             this.progressRate = progressRate;
@@ -89,6 +100,7 @@ public class ReadLectureOverviewResponseDto extends SelfValidating<ReadLectureOv
             return LectureOverview.builder()
                     .id(lecture.getId())
                     .title(lecture.getTitle())
+                    .status(lecture.getStatus().toString())
                     .professorName(userLecture.getProfessor().getName())
                     .currentWeek(week.getWeekIndex())
                     .progressRate(progressRate)

@@ -41,7 +41,7 @@ public class Lecture {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private EStatus status = EStatus.PENDING;
+    private EStatus status = EStatus.EMPTY;
 
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */

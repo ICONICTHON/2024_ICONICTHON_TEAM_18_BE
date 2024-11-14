@@ -3,12 +3,11 @@ package org.dongguk.onroad.roadmap.application.service;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.onroad.core.exception.error.ErrorCode;
 import org.dongguk.onroad.core.exception.type.CommonException;
-import org.dongguk.onroad.roadmap.application.dto.request.ReadLectureOverviewResponseDto;
+import org.dongguk.onroad.roadmap.application.dto.response.ReadLectureOverviewResponseDto;
 import org.dongguk.onroad.roadmap.application.usecase.ReadLectureOverviewUseCase;
 import org.dongguk.onroad.roadmap.domain.Lecture;
 import org.dongguk.onroad.roadmap.domain.UserLecture;
 import org.dongguk.onroad.roadmap.domain.Week;
-import org.dongguk.onroad.roadmap.domain.type.EStatus;
 import org.dongguk.onroad.roadmap.repository.UserChoiceRepository;
 import org.dongguk.onroad.roadmap.repository.UserLectureRepository;
 import org.dongguk.onroad.roadmap.repository.WeekRepository;
@@ -24,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-import static org.dongguk.onroad.roadmap.repository.UserChoiceRepository.*;
+import static org.dongguk.onroad.roadmap.repository.UserChoiceRepository.ProgressProjection;
 
 @Service
 @RequiredArgsConstructor
@@ -49,8 +48,8 @@ public class ReadLectureOverviewService implements ReadLectureOverviewUseCase {
         };
 
         List<ReadLectureOverviewResponseDto.LectureOverview> lectureOverviewList = userLectures.stream()
-                .filter(userLecture -> userLecture.getLecture().getStatus().equals(EStatus.COMPLETED))
                 .map(userLecture -> {
+
                     Lecture lecture = userLecture.getLecture();
 
                     // 진행률 계산
@@ -59,13 +58,12 @@ public class ReadLectureOverviewService implements ReadLectureOverviewUseCase {
                     Week week = weekRepository.findIsSelectedByLecture(lecture)
                             .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-                    return ReadLectureOverviewResponseDto.LectureOverview.builder()
-                            .id(lecture.getId())
-                            .title(lecture.getTitle())
-                            .professorName(userLecture.getProfessor().getName())
-                            .currentWeek(week.getWeekIndex())
-                            .progressRate(progressRate)
-                            .build();
+                    return ReadLectureOverviewResponseDto.LectureOverview.of(
+                            lecture,
+                            userLecture,
+                            week,
+                            progressRate
+                    );
                 })
                 .toList();
 
