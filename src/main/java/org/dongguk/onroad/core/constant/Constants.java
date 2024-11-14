@@ -16,7 +16,11 @@ public class Constants {
     // COOKIE
     public static String ACCESS_TOKEN = "access_token";
     public static String REFRESH_TOKEN = "refresh_token";
-    
+
+    // KAFKA
+    public static String SUMMARY_REQUEST_TOPIC = "api.ai";
+    public static String SUMMARY_RESPONSE_TOPIC = "ai.api";
+
     /**
      * 인증이 필요 없는 URL
      */
