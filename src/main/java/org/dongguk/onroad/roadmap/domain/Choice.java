@@ -42,7 +42,7 @@ public class Choice {
     /* One To Many Attribute ---------------------- */
     /* -------------------------------------------- */
     @OneToMany(mappedBy = "choice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Choice> choices = new ArrayList<>();
+    private List<UserChoice> userChoices = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */

@@ -35,12 +35,6 @@ public class UserChoice {
     private Choice choice;
 
     /* -------------------------------------------- */
-    /* One To Many Attribute ---------------------- */
-    /* -------------------------------------------- */
-    @OneToMany(mappedBy = "userChoice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserChoice> userChoices = new ArrayList<>();
-
-    /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
