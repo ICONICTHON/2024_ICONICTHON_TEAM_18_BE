@@ -1,20 +1,18 @@
-package org.dongguk.onroad.question.domain;
+package org.dongguk.onroad.roadmap.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.onroad.roadmap.domain.Lecture;
-import org.dongguk.onroad.security.domain.mysql.User;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "questions")
+@Table(name = "sections")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Question {
+public class Section {
 
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
@@ -26,18 +24,14 @@ public class Question {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(length = 500, nullable = false)
-    private String title;
-
-    @Lob
-    @Column(nullable = false)
-    private String content;
-
-    @Column(name = "img_url")
-    private String imgUrl;
-
     @Column(name = "week_index", nullable = false)
     private Integer weekIndex;
+
+    @Column(name = "title", length = 200, nullable = false)
+    private String title;
+
+    @Column(name = "description", length = 500, nullable = false)
+    private String description;
 
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
@@ -49,24 +43,18 @@ public class Question {
     /* Many To One Mapping ------------------------ */
     /* -------------------------------------------- */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_id", nullable = false)
-    private Lecture lecture;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private User student;
+    @JoinColumn(name = "week_id", nullable = false)
+    private Week week;
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Question(String title, String content, String imgUrl, Integer weekIndex, Lecture lecture, User student) {
-        this.title = title;
-        this.content = content;
-        this.imgUrl = imgUrl;
+    public Section(Integer weekIndex, String title, String description, Week week) {
         this.weekIndex = weekIndex;
-        this.lecture = lecture;
-        this.student = student;
+        this.title = title;
+        this.description = description;
+        this.week = week;
         this.createdAt = LocalDateTime.now();
     }
 }

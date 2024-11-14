@@ -1,20 +1,20 @@
-package org.dongguk.onroad.question.domain;
+package org.dongguk.onroad.roadmap.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.onroad.roadmap.domain.Lecture;
-import org.dongguk.onroad.security.domain.mysql.User;
+import org.dongguk.onroad.roadmap.domain.type.ESemester;
+import org.dongguk.onroad.roadmap.domain.type.EStatus;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "questions")
+@Table(name = "lectures")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Question {
+public class Lecture {
 
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
@@ -26,18 +26,19 @@ public class Question {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(length = 500, nullable = false)
+    @Column(name = "title", length = 50, nullable = false)
     private String title;
 
-    @Lob
-    @Column(nullable = false)
-    private String content;
+    @Column(name = "year", nullable = false)
+    private Integer year;
 
-    @Column(name = "img_url")
-    private String imgUrl;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "semester", nullable = false)
+    private ESemester semester;
 
-    @Column(name = "week_index", nullable = false)
-    private Integer weekIndex;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private EStatus status = EStatus.PENDING;
 
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
@@ -46,28 +47,18 @@ public class Question {
     private LocalDateTime createdAt;
 
     /* -------------------------------------------- */
-    /* Many To One Mapping ------------------------ */
-    /* -------------------------------------------- */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_id", nullable = false)
-    private Lecture lecture;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private User student;
-
-    /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Question(String title, String content, String imgUrl, Integer weekIndex, Lecture lecture, User student) {
+    public Lecture(String title, Integer year, ESemester semester) {
         this.title = title;
-        this.content = content;
-        this.imgUrl = imgUrl;
-        this.weekIndex = weekIndex;
-        this.lecture = lecture;
-        this.student = student;
+        this.year = year;
+        this.semester = semester;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void updateStatus(EStatus status) {
+        this.status = status;
     }
 }
 

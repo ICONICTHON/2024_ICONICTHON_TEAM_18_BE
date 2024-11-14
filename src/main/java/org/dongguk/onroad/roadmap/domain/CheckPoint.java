@@ -1,20 +1,18 @@
-package org.dongguk.onroad.question.domain;
+package org.dongguk.onroad.roadmap.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dongguk.onroad.roadmap.domain.Lecture;
-import org.dongguk.onroad.security.domain.mysql.User;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "questions")
+@Table(name = "check_points")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Question {
+public class CheckPoint {
 
     /* -------------------------------------------- */
     /* Default Column ----------------------------- */
@@ -26,18 +24,8 @@ public class Question {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(length = 500, nullable = false)
-    private String title;
-
-    @Lob
-    @Column(nullable = false)
+    @Column(name = "content", length = 500, nullable = false)
     private String content;
-
-    @Column(name = "img_url")
-    private String imgUrl;
-
-    @Column(name = "week_index", nullable = false)
-    private Integer weekIndex;
 
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
@@ -49,24 +37,16 @@ public class Question {
     /* Many To One Mapping ------------------------ */
     /* -------------------------------------------- */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_id", nullable = false)
-    private Lecture lecture;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private User student;
+    @JoinColumn(name = "subtopic_id", nullable = false)
+    private Subtopic subtopic;
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Question(String title, String content, String imgUrl, Integer weekIndex, Lecture lecture, User student) {
-        this.title = title;
+    public CheckPoint(String content, Subtopic subtopic) {
         this.content = content;
-        this.imgUrl = imgUrl;
-        this.weekIndex = weekIndex;
-        this.lecture = lecture;
-        this.student = student;
+        this.subtopic = subtopic;
         this.createdAt = LocalDateTime.now();
     }
 }
