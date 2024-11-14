@@ -22,7 +22,7 @@ public class Choice {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(length = 500, nullable = false)
+    @Column(name = "content", length = 500, nullable = false)
     private String content;
 
     @Column(name = "is_answer", nullable = false)

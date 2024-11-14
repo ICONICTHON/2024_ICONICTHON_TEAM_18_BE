@@ -24,10 +24,10 @@ public class Subtopic {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(length = 100, nullable = false)
+    @Column(name = "title", length = 100, nullable = false)
     private String title;
 
-    @Column(length = 500, nullable = false)
+    @Column(name = "detail", length = 500, nullable = false)
     private String detail;
 
     /* -------------------------------------------- */

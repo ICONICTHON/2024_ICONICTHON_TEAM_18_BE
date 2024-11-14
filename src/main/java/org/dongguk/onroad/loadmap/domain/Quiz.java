@@ -24,7 +24,7 @@ public class Quiz {
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "type", nullable = false)
     private EQuizType type;
 
     @Column(name = "content" ,length = 500, nullable = false)
