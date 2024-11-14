@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CheckPointRepository extends JpaRepository<CheckPoint, Long> {
 
-    List<CheckPoint> findBySubtopicId(Long subtopicId);
+    List<CheckPoint> findAllBySubtopicId(Long subtopicId);
 }
