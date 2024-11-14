@@ -15,3 +15,8 @@ Authorization: Bearer {{access_token}}
 //@no-log
 GET {{host_url}}/v1/lectures/1/roadmaps
 Authorization: Bearer {{access_token}}
+
+### 체크포인트 조회하기
+//@no-log
+GET {{host_url}}/v1/subtopics/1/check-points/summaries
+Authorization: Bearer {{access_token}}
