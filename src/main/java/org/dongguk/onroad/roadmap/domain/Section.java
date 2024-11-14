@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sections")
@@ -45,6 +47,12 @@ public class Section {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "week_id", nullable = false)
     private Week week;
+
+    /* -------------------------------------------- */
+    /* One To Many Attribute ---------------------- */
+    /* -------------------------------------------- */
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subtopic> subtopics = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */

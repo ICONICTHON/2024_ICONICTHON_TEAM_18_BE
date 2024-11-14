@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.onroad.security.domain.mysql.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "user_choices")
 @Getter
@@ -30,6 +33,12 @@ public class UserChoice {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "choice_id", nullable = false)
     private Choice choice;
+
+    /* -------------------------------------------- */
+    /* One To Many Attribute ---------------------- */
+    /* -------------------------------------------- */
+    @OneToMany(mappedBy = "userChoice", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserChoice> userChoices = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */

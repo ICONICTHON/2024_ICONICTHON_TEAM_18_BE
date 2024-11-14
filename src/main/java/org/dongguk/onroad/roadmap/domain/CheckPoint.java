@@ -41,6 +41,12 @@ public class CheckPoint {
     private Subtopic subtopic;
 
     /* -------------------------------------------- */
+    /* One To One Attribute ----------------------- */
+    /* -------------------------------------------- */
+    @OneToOne(mappedBy = "checkPoint", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Quiz quiz;
+
+    /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
