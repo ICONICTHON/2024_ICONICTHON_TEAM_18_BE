@@ -3,10 +3,7 @@ package org.dongguk.onroad.roadmap.application.controller.query;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.onroad.core.annotation.security.UserID;
 import org.dongguk.onroad.core.dto.ResponseDto;
-import org.dongguk.onroad.roadmap.application.dto.response.ReadCheckPointSummaryResponseDto;
-import org.dongguk.onroad.roadmap.application.dto.response.ReadLectureBriefResponseDto;
-import org.dongguk.onroad.roadmap.application.dto.response.ReadQuizSummaryResponseDto;
-import org.dongguk.onroad.roadmap.application.dto.response.ReadRoadmapResponseDto;
+import org.dongguk.onroad.roadmap.application.dto.response.*;
 import org.dongguk.onroad.roadmap.application.usecase.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +21,7 @@ public class RoadmapQueryV1Controller {
     private final ReadRoadmapUseCase readRoadmapUseCase;
     private final ReadCheckPointSummaryUseCase readCheckPointSummaryUseCase;
     private final ReadQuizSummaryUseCase readQuizSummaryUseCase;
+    private final ReadLastUpdatedRoadmapUseCase readLastUpdatedRoadmapUseCase;
 
     @GetMapping("/v1/lectures/briefs")
     public ResponseDto<ReadLectureBriefResponseDto> readLectureBrief(
@@ -67,5 +65,12 @@ public class RoadmapQueryV1Controller {
             @PathVariable Long id
     ) {
         return ResponseDto.ok(readQuizSummaryUseCase.execute(id));
+    }
+
+    @GetMapping("/v1/roadmaps/created-at")
+    public ResponseDto<ReadLastUpdatedRoadmapResponseDto> readLastUpdatedRoadmap(
+            @UserID UUID userId
+    ) {
+        return ResponseDto.ok(readLastUpdatedRoadmapUseCase.execute(userId));
     }
 }
