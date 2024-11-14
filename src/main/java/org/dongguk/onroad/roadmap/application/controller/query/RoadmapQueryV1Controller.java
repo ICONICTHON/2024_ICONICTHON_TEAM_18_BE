@@ -3,8 +3,10 @@ package org.dongguk.onroad.roadmap.application.controller.query;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.onroad.core.annotation.security.UserID;
 import org.dongguk.onroad.core.dto.ResponseDto;
+import org.dongguk.onroad.roadmap.application.dto.response.ReadCheckPointSummaryResponseDto;
 import org.dongguk.onroad.roadmap.application.dto.response.ReadLectureBriefResponseDto;
 import org.dongguk.onroad.roadmap.application.dto.response.ReadRoadmapResponseDto;
+import org.dongguk.onroad.roadmap.application.usecase.ReadCheckPointSummaryUseCase;
 import org.dongguk.onroad.roadmap.application.usecase.ReadLectureBriefUseCase;
 import org.dongguk.onroad.roadmap.application.usecase.ReadLectureOverviewUseCase;
 import org.dongguk.onroad.roadmap.application.usecase.ReadRoadmapUseCase;
@@ -22,6 +24,7 @@ public class RoadmapQueryV1Controller {
     private final ReadLectureBriefUseCase readLectureBriefUseCase;
     private final ReadLectureOverviewUseCase readLectureOverviewUseCase;
     private final ReadRoadmapUseCase readRoadmapUseCase;
+    private final ReadCheckPointSummaryUseCase readCheckPointSummaryUseCase;
 
     @GetMapping("/v1/lectures/briefs")
     public ResponseDto<ReadLectureBriefResponseDto> readLectureBrief(
@@ -50,5 +53,12 @@ public class RoadmapQueryV1Controller {
             @PathVariable Long id
     ) {
         return ResponseDto.ok(readRoadmapUseCase.execute(id));
+    }
+
+    @GetMapping("/v1/subtopics/{id}/check-points/summaries")
+    public ResponseDto<ReadCheckPointSummaryResponseDto> readCheckPointSummary(
+            @PathVariable Long id
+    ) {
+        return ResponseDto.ok(readCheckPointSummaryUseCase.execute(id));
     }
 }
