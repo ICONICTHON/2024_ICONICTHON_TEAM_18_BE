@@ -23,10 +23,9 @@ public class Constants {
     public static List<String> NO_NEED_AUTH_URLS = List.of(
             // Authentication/Authorization
 
-            "/api/v1/auth/reissue/token",
-            "/api/v1/auth/sign-up",
-            "/api/v1/auth/login",
-            "/api/v1/auth/users",
+            "/v1/auth/reissue/token",
+            "/v1/auth/sign-up",
+            "/v1/auth/login",
 
             // Swagger
             "/api-docs.html",
