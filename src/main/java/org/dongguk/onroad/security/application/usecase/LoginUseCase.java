@@ -8,7 +8,7 @@ import org.dongguk.onroad.security.info.CustomUserPrincipal;
 public interface LoginUseCase {
 
     /**
-     * Security에서 사용되는 Login 유스케이스
+     * 1.1 Security에서 사용되는 Login 유스케이스
      * @param principal UserPrincipal
      * @param jsonWebTokenDto DefaultJsonWebTokenDto
      */

@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface DeleteUserUseCase {
 
     /**
-     * 계정 탈퇴
+     * 2.3 계정 탈퇴
      * @param userId 유저 ID
      */
     void execute(UUID userId);

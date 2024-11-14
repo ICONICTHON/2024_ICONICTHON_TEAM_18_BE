@@ -9,7 +9,11 @@ import java.util.UUID;
 public interface ReadLectureOverviewUseCase {
 
     /**
-     * 강의 개요 정보를 읽어오는 유스케이스
+     * 3.6 강의 개요 정보를 읽어오는 유스케이스
+     * @param page 페이지
+     * @param size 사이즈
+     * @param userId 사용자 ID
+     * @return ReadLectureOverviewResponseDto
      */
     ReadLectureOverviewResponseDto execute(
             Integer page,

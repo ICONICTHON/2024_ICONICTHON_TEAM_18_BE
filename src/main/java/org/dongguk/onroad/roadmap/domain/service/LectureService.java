@@ -23,4 +23,16 @@ public class LectureService {
             throw new CommonException(ErrorCode.INVALID_ARGUMENT);
         }
     }
+
+    public Lecture updateStatusLoading(Lecture lecture, Integer weekCount){
+        if(weekCount > 0){
+            lecture.updateStatus(EStatus.LOADING);
+        }
+        return lecture;
+    }
+
+    public Lecture updateStatusCompleted(Lecture lecture){
+        lecture.updateStatus(EStatus.COMPLETED);
+        return lecture;
+    }
 }

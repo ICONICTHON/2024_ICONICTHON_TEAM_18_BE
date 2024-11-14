@@ -74,6 +74,7 @@ public class ReadLastUpdatedRoadMapService implements ReadLastUpdatedRoadmapUseC
         // Week List 조회 및 Dto 변환
         List<Week> weeks = weekRepository.findAllByLectureId(lecture.getId());
 
+        // WeekInfoDto List 생성
         List<ReadLastUpdatedRoadmapResponseDto.WeekInfoDto> weekInfoDtos = weeks.stream()
                 .map(week -> {
                     List<Section> weekSections = weekSectionMap.getOrDefault(week, List.of());

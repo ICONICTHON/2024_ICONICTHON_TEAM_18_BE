@@ -47,11 +47,17 @@ public class ReadRoadmapService implements ReadRoadmapUseCase {
 
         // 요청 유효성 검증
         if (user.getRole() == ESecurityRole.PROFESSOR) {
-            if (lecture.getStatus() == EStatus.EMPTY) {
+            if (lecture.getStatus() == EStatus.EMPTY) { // 교수이면서 강의가 EMPTY 상태인 경우
+
+                // Lecture 정보만 기입되어있고 나머지는 null인 Dto 반환
                 return ReadRoadmapResponseDto.zero(lecture, user.getName());
             }
         }
+
+        // 학생인 경우
         else {
+
+            // Lecture 유효성 검증
             lectureService.validateLecture(lecture);
         }
 
@@ -72,6 +78,7 @@ public class ReadRoadmapService implements ReadRoadmapUseCase {
         // Week List 조회 및 Dto 변환
         List<Week> weeks = weekRepository.findAllByLectureId(lectureId);
 
+        // WeekInfoDto List 생성
         List<ReadRoadmapResponseDto.WeekInfoDto> weekInfoDtos = weeks.stream()
                 .map(week -> {
                     List<Section> weekSections = weekSectionMap.getOrDefault(week, List.of());

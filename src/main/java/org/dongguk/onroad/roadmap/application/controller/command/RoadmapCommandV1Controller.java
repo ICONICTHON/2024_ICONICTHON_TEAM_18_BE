@@ -30,6 +30,21 @@ public class RoadmapCommandV1Controller {
     private final CreateUserChoiceUseCase createUserChoiceUseCase;
     private final CreateQuizUseCase createQuizUseCase;
 
+    /**
+     *  3.5 퀴즈 정답 입력하기
+     */
+    @PostMapping("/user-choices")
+    public ResponseDto<Void> createUserChoice(
+            @UserID UUID userId,
+            @RequestBody @Valid CreateUserChoiceRequestDto requestDto
+    ) {
+        createUserChoiceUseCase.execute(userId, requestDto);
+        return ResponseDto.created(null);
+    }
+
+    /**
+     *  3.7 강의 생성하기
+     */
     @PostMapping("/lectures")
     public ResponseDto<?> createLecture(
             @UserID UUID userId,
@@ -44,6 +59,9 @@ public class RoadmapCommandV1Controller {
         return ResponseDto.created(null);
     }
 
+    /**
+     *  3.8 로드맵 생성하기
+     */
     @PostMapping(value = "/roadmaps/lectures/{lectureId}", consumes = {MediaType.APPLICATION_PDF_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseDto<?> createRoadmap(
             @UserID UUID userId,
@@ -57,16 +75,10 @@ public class RoadmapCommandV1Controller {
         );
         return ResponseDto.ok(null);
     }
-
-    @PostMapping("/user-choices")
-    public ResponseDto<Void> createUserChoice(
-            @UserID UUID userId,
-            @RequestBody @Valid CreateUserChoiceRequestDto requestDto
-    ) {
-        createUserChoiceUseCase.execute(userId, requestDto);
-        return ResponseDto.created(null);
-    }
-
+  
+    /**
+     *  3.10  생성하기
+     */
     @PostMapping("/quizzes")
     public ResponseDto<Void> createQuiz(
             @UserID UUID userId,

@@ -8,6 +8,7 @@ import org.dongguk.onroad.core.utility.S3Util;
 import org.dongguk.onroad.roadmap.application.dto.kafka.CreateRoadmapDetailsKafkaResponseDto;
 import org.dongguk.onroad.roadmap.application.usecase.CreateRoadmapDetailsUseCase;
 import org.dongguk.onroad.roadmap.domain.*;
+import org.dongguk.onroad.roadmap.domain.service.LectureService;
 import org.dongguk.onroad.roadmap.domain.service.SectionService;
 import org.dongguk.onroad.roadmap.domain.service.SubtopicService;
 import org.dongguk.onroad.roadmap.domain.service.WeekService;
@@ -28,15 +29,18 @@ public class CreateRoadmapDetailsService implements CreateRoadmapDetailsUseCase 
     private final WeekService weekService;
     private final SectionService sectionService;
     private final SubtopicService subtopicService;
+    private final LectureService lectureService;
     private final S3Util s3Util;
 
     @Override
     @Transactional
     public void execute(CreateRoadmapDetailsKafkaResponseDto responseDto) {
 
+        // 강의 조회
         Lecture lecture = lectureRepository.findById(responseDto.lectureId())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
+        // Week 생성
         Week week = createWeek(
                 lecture,
                 responseDto.title(),
@@ -51,7 +55,7 @@ public class CreateRoadmapDetailsService implements CreateRoadmapDetailsUseCase 
                     sectionDto.description()
             );
 
-
+            // Subtopic 생성
             sectionDto.subtopics().forEach(subSectionDto -> {
                 Subtopic subtopic = createSubtopic(
                         section,
@@ -59,15 +63,18 @@ public class CreateRoadmapDetailsService implements CreateRoadmapDetailsUseCase 
                         subSectionDto.detail()
                 );
 
+                // Checkpoint 생성
                 subSectionDto.checkpoints().forEach(
                         checkpointContent -> createCheckPoint(subtopic, checkpointContent)
                 );
             });
         });
 
-        lecture.updateStatus(EStatus.COMPLETED);
+        // 강의 상태 Completed로 변경
+        lecture = lectureService.updateStatusCompleted(lecture);
         lectureRepository.save(lecture);
 
+        // PDF 파일 S3에서 삭제
         s3Util.deleteFile(responseDto.fileUrl());
     }
 

@@ -27,9 +27,11 @@ public class ReadReplyService implements ReadReplyUseCase {
     @Transactional(readOnly = true)
     public ReadReplyResponseDto execute(UUID userId, Long questionId) {
 
+        // 유저 조회
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
+        // 학생인 경우 다른 유저들의 이름을 익명으로 제공
         if (user.getRole() == ESecurityRole.STUDENT) {
             List<Reply> replies = replyRepository.findAllByQuestionId(questionId);
 
@@ -38,6 +40,7 @@ public class ReadReplyService implements ReadReplyUseCase {
                     .toList());
         }
 
+        // 교수인 경우 모든 유저들의 이름을 제공
         List<Reply> replies = replyRepository.findAllByQuestionId(questionId);
 
         return ReadReplyResponseDto.of(replies.stream()

@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface ReadUserBriefUseCase {
 
     /**
-     * Security에서 사용되는 유스케이스. 사용자의 간단한 정보를 읽어옴
+     * 2.2 Security에서 사용되는 유스케이스. 사용자의 간단한 정보를 읽어옴
      * @param userId 계정 ID
      * @return ReadUserBriefResponseDto 사용자 간단한 정보
      */

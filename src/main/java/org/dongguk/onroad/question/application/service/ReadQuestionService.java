@@ -29,6 +29,7 @@ public class ReadQuestionService implements ReadQuestionUseCase {
     @Transactional(readOnly = true)
     public ReadQuestionResponseDto execute(UUID userId, Long lectureId, Integer weekIndex) {
 
+        // 유저 조회
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
@@ -48,6 +49,7 @@ public class ReadQuestionService implements ReadQuestionUseCase {
             return ReadQuestionResponseDto.of(questionDto);
         }
 
+        // 교수라면, 모든 질문의 질문자 명을 공개
         // 질문 조회
         List<Question> questions = questionRepository.findAllByLectureIdAndWeekIndex(lectureId, weekIndex);
 
