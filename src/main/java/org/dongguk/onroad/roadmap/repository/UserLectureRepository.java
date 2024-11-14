@@ -15,8 +15,12 @@ import org.springframework.data.domain.Pageable;
 
 @Repository
 public interface UserLectureRepository extends JpaRepository<UserLecture, Long> {
-    Page<UserLecture> findByStudent(User student, Pageable pageable);
-    Page<UserLecture> findByProfessor(User professor, Pageable pageable);
+
+    @Query("SELECT ul FROM UserLecture ul WHERE ul.student = :student")
+    Page<UserLecture> findByStudent(@Param("student") User student, Pageable pageable);
+
+    @Query("SELECT ul FROM UserLecture ul WHERE ul.professor = :professor")
+    Page<UserLecture> findByProfessor(@Param("professor") User professor, Pageable pageable);
   
     @EntityGraph(attributePaths = {"lecture"})
     @Query("SELECT ul FROM UserLecture ul " +
