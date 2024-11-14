@@ -65,7 +65,6 @@ public class ReadLectureOverviewResponseDto extends SelfValidating<ReadLectureOv
         @JsonProperty("professor_name")
         private final String professorName;
 
-        @NotNull(message = "current_week는 null일 수 없습니다.")
         @JsonProperty("current_week")
         private final Integer currentWeek;
 
@@ -102,7 +101,7 @@ public class ReadLectureOverviewResponseDto extends SelfValidating<ReadLectureOv
                     .title(lecture.getTitle())
                     .status(lecture.getStatus().toString())
                     .professorName(userLecture.getProfessor().getName())
-                    .currentWeek(week.getWeekIndex())
+                    .currentWeek(week == null ? null : week.getWeekIndex())
                     .progressRate(progressRate)
                     .build();
         }

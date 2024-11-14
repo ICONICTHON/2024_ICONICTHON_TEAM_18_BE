@@ -55,8 +55,7 @@ public class ReadLectureOverviewService implements ReadLectureOverviewUseCase {
                     // 진행률 계산
                     Integer progressRate = calculateProgressRate(user, lecture);
 
-                    Week week = weekRepository.findIsSelectedByLecture(lecture)
-                            .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
+                    Week week = weekRepository.findIsSelectedByLecture(lecture).orElse(null);
 
                     return ReadLectureOverviewResponseDto.LectureOverview.of(
                             lecture,

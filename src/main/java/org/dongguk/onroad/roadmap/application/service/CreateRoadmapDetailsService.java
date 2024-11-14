@@ -10,6 +10,7 @@ import org.dongguk.onroad.roadmap.domain.*;
 import org.dongguk.onroad.roadmap.domain.service.SectionService;
 import org.dongguk.onroad.roadmap.domain.service.SubtopicService;
 import org.dongguk.onroad.roadmap.domain.service.WeekService;
+import org.dongguk.onroad.roadmap.domain.type.EStatus;
 import org.dongguk.onroad.roadmap.repository.LectureRepository;
 import org.dongguk.onroad.roadmap.repository.WeekRepository;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,6 @@ public class CreateRoadmapDetailsService implements CreateRoadmapDetailsUseCase 
     @Override
     @Transactional
     public void execute(CreateRoadmapDetailsKafkaResponseDto responseDto) {
-
-        log.info("CreateRoadmapDetailsService.execute() 실행");
 
         Lecture lecture = lectureRepository.findById(responseDto.lectureId())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
@@ -64,12 +63,16 @@ public class CreateRoadmapDetailsService implements CreateRoadmapDetailsUseCase 
             });
         });
 
+        lecture.updateStatus(EStatus.COMPLETED);
         lectureRepository.save(lecture);
     }
 
     private Week createWeek(Lecture lecture, String title, String overallSummary) {
         int weekIndex = weekRepository.countByLecture(lecture) + 1;
         Week week = weekService.createWeek(title, overallSummary, weekIndex, lecture);
+        if(weekIndex == 1){
+            week.updateIsSelected(true);
+        }
         lecture.getWeeks().add(week);
 
         return week;

@@ -30,7 +30,6 @@ public class RoadmapKafkaConsumerV1Controller {
         Object messageValue = record.value();
 
         try {
-            // 메시지가 LinkedHashMap 타입인 경우 문자열로 변환
             String jsonPayload;
             if (messageValue instanceof LinkedHashMap) {
                 jsonPayload = objectMapper.writeValueAsString(messageValue);
@@ -38,13 +37,9 @@ public class RoadmapKafkaConsumerV1Controller {
                 jsonPayload = messageValue.toString();
             }
 
-            log.info("Received Kafka message: {}", jsonPayload);
-
-            // JSON 문자열을 DTO로 매핑
             CreateRoadmapDetailsKafkaResponseDto createRoadmapDetailsKafkaResponseDto =
                     objectMapper.readValue(jsonPayload, CreateRoadmapDetailsKafkaResponseDto.class);
 
-            // UseCase 실행
             createRoadmapDetailsUseCase.execute(createRoadmapDetailsKafkaResponseDto);
 
         } catch (JsonProcessingException e) {

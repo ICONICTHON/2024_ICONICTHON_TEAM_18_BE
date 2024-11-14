@@ -54,4 +54,8 @@ public class Week {
         this.weekIndex = weekIndex;
         this.lecture = lecture;
     }
+
+    public void updateIsSelected(Boolean isSelected) {
+        this.isSelected = isSelected;
+    }
 }

@@ -38,7 +38,6 @@ public class ReadLectureBriefService implements ReadLectureBriefUseCase {
         // 강의 객체 리스트 조회
         List<Lecture> lectureList = userLecture.stream()
                 .map(UserLecture::getLecture)
-                .filter(lecture -> lecture.getStatus() == EStatus.COMPLETED)
                 .toList();
 
         return ReadLectureBriefResponseDto.fromEntities(lectureList);
