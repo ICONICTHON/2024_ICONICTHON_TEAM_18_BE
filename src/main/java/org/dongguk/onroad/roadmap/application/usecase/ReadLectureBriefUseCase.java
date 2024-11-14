@@ -9,7 +9,9 @@ import java.util.UUID;
 public interface ReadLectureBriefUseCase {
 
     /**
-     * 강의 요약 정보를 읽어오는 유스케이스
+     * 3.1 강의 요약 정보(강의 이름 리스트)를 읽어오는 유스케이스
+     * @param userId 사용자 ID
+     * @return ReadLectureBriefResponseDto
      */
     ReadLectureBriefResponseDto execute(UUID userId);
 }

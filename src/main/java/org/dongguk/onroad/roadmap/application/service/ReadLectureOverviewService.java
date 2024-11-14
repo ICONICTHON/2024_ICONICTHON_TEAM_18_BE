@@ -37,26 +37,34 @@ public class ReadLectureOverviewService implements ReadLectureOverviewUseCase {
     @Override
     @Transactional(readOnly = true)
     public ReadLectureOverviewResponseDto execute(Integer page, Integer size, UUID userId) {
+
+        // 유저 조회
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
+        // Pageable 객체 생성
         Pageable pageable = PageRequest.of(page - 1, size);
 
+        // UserLecture 조회
         Page<UserLecture> userLectures = switch (user.getRole()) {
             case STUDENT -> userLectureRepository.findByStudent(user, pageable);
             case PROFESSOR -> userLectureRepository.findByProfessor(user, pageable);
         };
 
+        // LectureOverview List 생성
         List<ReadLectureOverviewResponseDto.LectureOverview> lectureOverviewList = userLectures.stream()
                 .map(userLecture -> {
 
+                    // UserLecture에서 Lecture 추출
                     Lecture lecture = userLecture.getLecture();
 
                     // 진행률 계산
                     Integer progressRate = calculateProgressRate(user, lecture);
 
+                    // Week 조회(isSelected가 true인 것)
                     Week week = weekRepository.findIsSelectedByLecture(lecture).orElse(null);
 
+                    // LectureOverview 생성
                     return ReadLectureOverviewResponseDto.LectureOverview.of(
                             lecture,
                             userLecture,

@@ -35,6 +35,7 @@ public class ReadQuizSummaryService implements ReadQuizSummaryUseCase {
         // Quiz List 조회
         List<Quiz> quizzes = quizRepository.findAllBySubtopicId(subtopicId);
 
+        // ReadQuizSummaryResponseDto 반환
         return ReadQuizSummaryResponseDto.of(quizzes.stream()
                 .map(quiz -> {
                     List<Choice> quizChoices = quizChoiceMap.getOrDefault(quiz, List.of());

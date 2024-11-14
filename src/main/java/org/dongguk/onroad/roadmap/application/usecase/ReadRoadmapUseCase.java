@@ -8,7 +8,8 @@ import java.util.UUID;
 @UseCase
 public interface ReadRoadmapUseCase {
     /**
-     * Roadmap을 읽는 유스케이스
+     * 3.2 Roadmap을 읽는 유스케이스
+     * @param userId 사용자 ID
      * @param lectureId Roadmap ID
      * @return RoadmapDto
      */
