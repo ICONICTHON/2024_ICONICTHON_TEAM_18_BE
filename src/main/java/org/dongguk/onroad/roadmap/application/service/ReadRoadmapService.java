@@ -7,18 +7,24 @@ import org.dongguk.onroad.roadmap.application.dto.response.ReadRoadmapResponseDt
 import org.dongguk.onroad.roadmap.application.usecase.ReadRoadmapUseCase;
 import org.dongguk.onroad.roadmap.domain.*;
 import org.dongguk.onroad.roadmap.domain.service.LectureService;
+import org.dongguk.onroad.roadmap.domain.type.EStatus;
 import org.dongguk.onroad.roadmap.repository.*;
+import org.dongguk.onroad.security.domain.mysql.User;
+import org.dongguk.onroad.security.domain.type.ESecurityRole;
+import org.dongguk.onroad.security.repository.mysql.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ReadRoadmapService implements ReadRoadmapUseCase {
 
+    private final UserRepository userRepository;
     private final UserLectureRepository userLectureRepository;
     private final LectureRepository lectureRepository;
     private final WeekRepository weekRepository;
@@ -29,14 +35,25 @@ public class ReadRoadmapService implements ReadRoadmapUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public ReadRoadmapResponseDto execute(Long lectureId) {
+    public ReadRoadmapResponseDto execute(UUID userId, Long lectureId) {
 
         // Lecture 조회
         Lecture lecture = lectureRepository.findById(lectureId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        // Lecture 상태 검증
-        lectureService.validateLecture(lecture);
+        // User 조회
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
+
+        // 요청 유효성 검증
+        if (user.getRole() == ESecurityRole.PROFESSOR) {
+            if (lecture.getStatus() == EStatus.EMPTY) {
+                return ReadRoadmapResponseDto.zero(lecture, user.getName());
+            }
+        }
+        else {
+            lectureService.validateLecture(lecture);
+        }
 
         // Subtopic List 조회
         List<Subtopic> subtopics = subtopicRepository.findAllByLectureId(lectureId);

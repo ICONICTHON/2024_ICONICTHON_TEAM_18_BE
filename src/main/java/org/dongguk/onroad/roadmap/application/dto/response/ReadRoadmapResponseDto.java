@@ -27,25 +27,19 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
     @Getter
     public static class LectureInfoDto extends SelfValidating<LectureInfoDto> {
 
-        @NotNull(message = "id는 null일 수 없습니다.")
         private final Long id;
 
-        @NotNull(message = "lecture_name은 null일 수 없습니다.")
         @JsonProperty("lecture_name")
         private final String lectureName;
 
-        @NotNull(message = "year는 null일 수 없습니다.")
         private final Integer year;
 
-        @NotNull(message = "semester는 null일 수 없습니다.")
         private final String semester;
 
         @JsonProperty("professor_name")
-        @NotNull(message = "professor_name은 null일 수 없습니다.")
         private final String professorName;
 
         @JsonProperty("week_info")
-        @NotNull(message = "week_info는 null일 수 없습니다.")
         private final List<WeekInfoDto> weekInfo;
 
         @Builder
@@ -69,27 +63,35 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
                     .weekInfo(weekInfoDtos)
                     .build();
         }
+
+        public static LectureInfoDto zero(Lecture lecture, String professorName) {
+            return LectureInfoDto.builder()
+                    .id(lecture.getId())
+                    .lectureName(lecture.getTitle())
+                    .year(lecture.getYear())
+                    .semester(lecture.getSemester().toString())
+                    .professorName(professorName)
+                    .weekInfo(null)
+                    .build();
+
+        }
     }
 
     @Getter
     public static class WeekInfoDto extends SelfValidating<WeekInfoDto> {
 
-        @NotNull(message = "id는 null일 수 없습니다.")
         private final Long id;
 
         @JsonProperty("week_index")
-        @NotNull(message = "week_index는 null일 수 없습니다.")
         private final Integer weekIndex;
 
-        @NotNull(message = "title은 null일 수 없습니다.")
+        @JsonProperty("title")
         private final String title;
 
         @JsonProperty("overall_summary")
-        @NotNull(message = "overall_summary는 null일 수 없습니다.")
         private final String overallSummary;
 
         @JsonProperty("section_info")
-        @NotNull(message = "section_info는 null일 수 없습니다.")
         private final List<SectionInfoDto> sectionInfo;
 
         @Builder
@@ -116,17 +118,13 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
     @Getter
     public static class SectionInfoDto extends SelfValidating<SectionInfoDto> {
 
-        @NotNull(message = "id는 null일 수 없습니다.")
         private final Long id;
 
-        @NotNull(message = "title은 null일 수 없습니다.")
         private final String title;
 
-        @NotNull(message = "description은 null일 수 없습니다.")
         private final String description;
 
         @JsonProperty("subtopic_info")
-        @NotNull(message = "subtopic_info는 null일 수 없습니다.")
         private final List<SubtopicInfoDto> subtopicInfo;
 
         @Builder
@@ -151,13 +149,10 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
     @Getter
     public static class SubtopicInfoDto extends SelfValidating<SubtopicInfoDto> {
 
-        @NotNull(message = "id는 null일 수 없습니다.")
         private final Long id;
 
-        @NotNull(message = "title은 null일 수 없습니다.")
         private final String title;
 
-        @NotNull(message = "detail은 null일 수 없습니다.")
         private final String detail;
 
         @Builder
@@ -180,6 +175,12 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
     public static ReadRoadmapResponseDto of(Lecture lecture, List<WeekInfoDto> weekInfoDtos, String professorName) {
         return ReadRoadmapResponseDto.builder()
                 .lectureInfo(LectureInfoDto.of(lecture, weekInfoDtos, professorName))
+                .build();
+    }
+
+    public static ReadRoadmapResponseDto zero(Lecture lecture, String professorName) {
+        return ReadRoadmapResponseDto.builder()
+                .lectureInfo(LectureInfoDto.zero(lecture, professorName))
                 .build();
     }
 }

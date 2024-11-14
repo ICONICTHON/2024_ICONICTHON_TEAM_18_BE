@@ -4,6 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.onroad.core.annotation.security.UserID;
 import org.dongguk.onroad.core.dto.ResponseDto;
+import org.dongguk.onroad.roadmap.application.dto.request.CreateUserChoiceRequestDto;
+import org.dongguk.onroad.roadmap.application.usecase.CreateUserChoiceUseCase;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.dongguk.onroad.roadmap.application.dto.request.CreateLectureRequestDto;
 import org.dongguk.onroad.roadmap.application.usecase.CreateLectureUseCase;
 import org.dongguk.onroad.roadmap.application.usecase.CreateRoadmapUseCase;
@@ -18,9 +23,9 @@ import java.util.UUID;
 @RequestMapping("/v1")
 public class RoadmapCommandV1Controller {
 
-
     private final CreateLectureUseCase createLectureUseCase;
     private final CreateRoadmapUseCase createRoadmapUseCase;
+    private final CreateUserChoiceUseCase createUserChoiceUseCase;
 
     @PostMapping("/lectures")
     public ResponseDto<?> createLecture(
@@ -48,5 +53,14 @@ public class RoadmapCommandV1Controller {
                 file
         );
         return ResponseDto.ok(null);
+    }
+
+    @PostMapping("/user-choices")
+    public ResponseDto<Void> createUserChoice(
+            @UserID UUID userId,
+            @RequestBody @Valid CreateUserChoiceRequestDto requestDto
+    ) {
+        createUserChoiceUseCase.execute(userId, requestDto);
+        return ResponseDto.created(null);
     }
 }

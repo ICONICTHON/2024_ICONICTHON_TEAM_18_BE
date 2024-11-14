@@ -53,3 +53,27 @@ Content-Type: application/pdf
 < /Users/jjuuuunnii/Desktop/2019112552_강승준.pdf
 
 --boundary
+
+
+### 퀴즈 정답 입력하기
+//@no-log
+POST {{host_url}}/v1/user-choices
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "user_quiz_list": [
+    {
+      "quiz_id": {{roadmap.API_3_5.user_quiz_list[0].quiz_id}},
+      "choice_id": {{roadmap.API_3_5.user_quiz_list[0].choice_id}}
+    },
+    {
+      "quiz_id": {{roadmap.API_3_5.user_quiz_list[1].quiz_id}},
+      "choice_id": {{roadmap.API_3_5.user_quiz_list[1].choice_id}}
+    },
+    {
+      "quiz_id": {{roadmap.API_3_5.user_quiz_list[2].quiz_id}},
+      "choice_id": {{roadmap.API_3_5.user_quiz_list[2].choice_id}}
+    }
+  ]
+}
