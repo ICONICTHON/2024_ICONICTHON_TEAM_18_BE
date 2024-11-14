@@ -55,5 +55,9 @@ public class CheckPoint {
         this.subtopic = subtopic;
         this.createdAt = LocalDateTime.now();
     }
+
+    public void updateQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
 }
 

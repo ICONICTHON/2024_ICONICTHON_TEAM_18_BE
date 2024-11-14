@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dongguk.onroad.roadmap.domain.type.EQuizType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "quizzes")
 @Getter
@@ -29,6 +32,12 @@ public class Quiz {
 
     @Column(name = "content" ,length = 500, nullable = false)
     private String content;
+
+    /* -------------------------------------------- */
+    /* One To Many Mapping ------------------------ */
+    /* -------------------------------------------- */
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Choice> choices = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* One To One Mapping ------------------------- */

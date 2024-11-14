@@ -4,7 +4,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.dongguk.onroad.core.annotation.security.UserID;
 import org.dongguk.onroad.core.dto.ResponseDto;
+import org.dongguk.onroad.roadmap.application.dto.request.CreateQuizRequestDto;
 import org.dongguk.onroad.roadmap.application.dto.request.CreateUserChoiceRequestDto;
+import org.dongguk.onroad.roadmap.application.usecase.CreateQuizUseCase;
 import org.dongguk.onroad.roadmap.application.usecase.CreateUserChoiceUseCase;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +28,7 @@ public class RoadmapCommandV1Controller {
     private final CreateLectureUseCase createLectureUseCase;
     private final CreateRoadmapUseCase createRoadmapUseCase;
     private final CreateUserChoiceUseCase createUserChoiceUseCase;
+    private final CreateQuizUseCase createQuizUseCase;
 
     /**
      *  3.5 퀴즈 정답 입력하기
@@ -72,4 +75,20 @@ public class RoadmapCommandV1Controller {
         );
         return ResponseDto.ok(null);
     }
+  
+    /**
+     *  3.10  생성하기
+     */
+    @PostMapping("/quizzes")
+    public ResponseDto<Void> createQuiz(
+            @UserID UUID userId,
+            @RequestBody @Valid CreateQuizRequestDto requestDto
+    ) {
+        createQuizUseCase.execute(
+                userId,
+                requestDto
+        );
+        return ResponseDto.created(null);
+    }
+
 }
