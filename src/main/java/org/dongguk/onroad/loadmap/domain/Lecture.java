@@ -35,9 +35,6 @@ public class Lecture {
     @Column(nullable = false)
     private ESemester semester;
 
-    @Column(nullable = false)
-    private Integer currentWeek = 0;
-
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */

@@ -27,6 +27,9 @@ public class Quiz {
     @Column(nullable = false)
     private EQuizType type;
 
+    @Column(name = "content" ,length = 500, nullable = false)
+    private String content;
+
     /* -------------------------------------------- */
     /* One To One Mapping ------------------------- */
     /* -------------------------------------------- */
@@ -38,8 +41,9 @@ public class Quiz {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Quiz(EQuizType type, CheckPoint checkPoint) {
+    public Quiz(EQuizType type, String content, CheckPoint checkPoint) {
         this.type = type;
+        this.content = content;
         this.checkPoint = checkPoint;
     }
 }
