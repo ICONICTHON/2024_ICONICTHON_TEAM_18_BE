@@ -25,4 +25,16 @@ public class UserService {
                 .role(role)
                 .build();
     }
+
+    public void validateStudent(User user) {
+        if (!user.getRole().equals(ESecurityRole.STUDENT)) {
+            throw new IllegalArgumentException("유저의 권한이 학생이 아닙니다.");
+        }
+    }
+
+    public void validateProfessor(User user) {
+        if (!user.getRole().equals(ESecurityRole.PROFESSOR)) {
+            throw new IllegalArgumentException("유저의 권한이 교수가 아닙니다.");
+        }
+    }
 }
