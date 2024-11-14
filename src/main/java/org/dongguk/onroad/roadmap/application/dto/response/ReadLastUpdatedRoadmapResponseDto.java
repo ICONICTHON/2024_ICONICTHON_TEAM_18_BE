@@ -11,20 +11,19 @@ import org.dongguk.onroad.roadmap.domain.Week;
 
 import java.util.List;
 
-@Getter
-public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDto> {
+public class ReadLastUpdatedRoadmapResponseDto extends SelfValidating<ReadLastUpdatedRoadmapResponseDto> {
 
     @JsonProperty("lecture_info")
-    private final LectureInfoDto lectureInfo;
+    private final ReadLastUpdatedRoadmapResponseDto.LectureInfoDto lectureInfo;
 
     @Builder
-    public ReadRoadmapResponseDto(LectureInfoDto lectureInfo) {
+    public ReadLastUpdatedRoadmapResponseDto(ReadLastUpdatedRoadmapResponseDto.LectureInfoDto lectureInfo) {
         this.lectureInfo = lectureInfo;
         this.validateSelf();
     }
 
     @Getter
-    public static class LectureInfoDto extends SelfValidating<LectureInfoDto> {
+    public static class LectureInfoDto extends SelfValidating<ReadLastUpdatedRoadmapResponseDto.LectureInfoDto> {
 
         private final Long id;
 
@@ -39,10 +38,10 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
         private final String professorName;
 
         @JsonProperty("week_info")
-        private final List<WeekInfoDto> weekInfo;
+        private final List<ReadLastUpdatedRoadmapResponseDto.WeekInfoDto> weekInfo;
 
         @Builder
-        public LectureInfoDto(Long id, String lectureName, Integer year, String semester, String professorName, List<WeekInfoDto> weekInfo) {
+        public LectureInfoDto(Long id, String lectureName, Integer year, String semester, String professorName, List<ReadLastUpdatedRoadmapResponseDto.WeekInfoDto> weekInfo) {
             this.id = id;
             this.lectureName = lectureName;
             this.year = year;
@@ -52,8 +51,8 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
             this.validateSelf();
         }
 
-        public static LectureInfoDto of(Lecture lecture, List<WeekInfoDto> weekInfoDtos, String professorName) {
-            return LectureInfoDto.builder()
+        public static ReadLastUpdatedRoadmapResponseDto.LectureInfoDto of(Lecture lecture, List<ReadLastUpdatedRoadmapResponseDto.WeekInfoDto> weekInfoDtos, String professorName) {
+            return ReadLastUpdatedRoadmapResponseDto.LectureInfoDto.builder()
                     .id(lecture.getId())
                     .lectureName(lecture.getTitle())
                     .year(lecture.getYear())
@@ -63,8 +62,8 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
                     .build();
         }
 
-        public static LectureInfoDto zero(Lecture lecture, String professorName) {
-            return LectureInfoDto.builder()
+        public static ReadLastUpdatedRoadmapResponseDto.LectureInfoDto zero(Lecture lecture, String professorName) {
+            return ReadLastUpdatedRoadmapResponseDto.LectureInfoDto.builder()
                     .id(lecture.getId())
                     .lectureName(lecture.getTitle())
                     .year(lecture.getYear())
@@ -77,27 +76,27 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
     }
 
     @Getter
-    public static class WeekInfoDto extends SelfValidating<WeekInfoDto> {
+    public static class WeekInfoDto extends SelfValidating<ReadLastUpdatedRoadmapResponseDto.WeekInfoDto> {
 
         private final Long id;
 
         @JsonProperty("week_index")
         private final Integer weekIndex;
 
-        @JsonProperty("is_selected_week")
-        private final Boolean isSelectedWeek;
-
         @JsonProperty("title")
         private final String title;
+
+        @JsonProperty("is_selected_week")
+        private final Boolean isSelectedWeek;
 
         @JsonProperty("overall_summary")
         private final String overallSummary;
 
         @JsonProperty("section_info")
-        private final List<SectionInfoDto> sectionInfo;
+        private final List<ReadLastUpdatedRoadmapResponseDto.SectionInfoDto> sectionInfo;
 
         @Builder
-        public WeekInfoDto(Long id, Integer weekIndex, Boolean isSelectedWeek, String title, String overallSummary, List<SectionInfoDto> sectionInfo) {
+        public WeekInfoDto(Long id, Integer weekIndex, Boolean isSelectedWeek, String title, String overallSummary, List<ReadLastUpdatedRoadmapResponseDto.SectionInfoDto> sectionInfo) {
             this.id = id;
             this.weekIndex = weekIndex;
             this.isSelectedWeek = isSelectedWeek;
@@ -107,8 +106,8 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
             this.validateSelf();
         }
 
-        public static WeekInfoDto of(Week week, List<SectionInfoDto> sectionInfoDtos) {
-            return WeekInfoDto.builder()
+        public static ReadLastUpdatedRoadmapResponseDto.WeekInfoDto of(Week week, List<ReadLastUpdatedRoadmapResponseDto.SectionInfoDto> sectionInfoDtos) {
+            return ReadLastUpdatedRoadmapResponseDto.WeekInfoDto.builder()
                     .id(week.getId())
                     .weekIndex(week.getWeekIndex())
                     .isSelectedWeek(week.getIsSelected())
@@ -120,7 +119,7 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
     }
 
     @Getter
-    public static class SectionInfoDto extends SelfValidating<SectionInfoDto> {
+    public static class SectionInfoDto extends SelfValidating<ReadLastUpdatedRoadmapResponseDto.SectionInfoDto> {
 
         private final Long id;
 
@@ -129,10 +128,10 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
         private final String description;
 
         @JsonProperty("subtopic_info")
-        private final List<SubtopicInfoDto> subtopicInfo;
+        private final List<ReadLastUpdatedRoadmapResponseDto.SubtopicInfoDto> subtopicInfo;
 
         @Builder
-        public SectionInfoDto(Long id, String title, String description, List<SubtopicInfoDto> subtopicInfo) {
+        public SectionInfoDto(Long id, String title, String description, List<ReadLastUpdatedRoadmapResponseDto.SubtopicInfoDto> subtopicInfo) {
             this.id = id;
             this.title = title;
             this.description = description;
@@ -140,8 +139,8 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
             this.validateSelf();
         }
 
-        public static SectionInfoDto of(Section section, List<SubtopicInfoDto> subtopicInfoDtos) {
-            return SectionInfoDto.builder()
+        public static ReadLastUpdatedRoadmapResponseDto.SectionInfoDto of(Section section, List<ReadLastUpdatedRoadmapResponseDto.SubtopicInfoDto> subtopicInfoDtos) {
+            return ReadLastUpdatedRoadmapResponseDto.SectionInfoDto.builder()
                     .id(section.getId())
                     .title(section.getTitle())
                     .description(section.getDescription())
@@ -151,7 +150,7 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
     }
 
     @Getter
-    public static class SubtopicInfoDto extends SelfValidating<SubtopicInfoDto> {
+    public static class SubtopicInfoDto extends SelfValidating<ReadLastUpdatedRoadmapResponseDto.SubtopicInfoDto> {
 
         private final Long id;
 
@@ -167,8 +166,8 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
             this.validateSelf();
         }
 
-        public static SubtopicInfoDto fromEntity(Subtopic subtopic) {
-            return SubtopicInfoDto.builder()
+        public static ReadLastUpdatedRoadmapResponseDto.SubtopicInfoDto fromEntity(Subtopic subtopic) {
+            return ReadLastUpdatedRoadmapResponseDto.SubtopicInfoDto.builder()
                     .id(subtopic.getId())
                     .title(subtopic.getTitle())
                     .detail(subtopic.getDetail())
@@ -176,15 +175,15 @@ public class ReadRoadmapResponseDto extends SelfValidating<ReadRoadmapResponseDt
         }
     }
 
-    public static ReadRoadmapResponseDto of(Lecture lecture, List<WeekInfoDto> weekInfoDtos, String professorName) {
-        return ReadRoadmapResponseDto.builder()
-                .lectureInfo(LectureInfoDto.of(lecture, weekInfoDtos, professorName))
+    public static ReadLastUpdatedRoadmapResponseDto of(Lecture lecture, List<ReadLastUpdatedRoadmapResponseDto.WeekInfoDto> weekInfoDtos, String professorName) {
+        return ReadLastUpdatedRoadmapResponseDto.builder()
+                .lectureInfo(ReadLastUpdatedRoadmapResponseDto.LectureInfoDto.of(lecture, weekInfoDtos, professorName))
                 .build();
     }
 
-    public static ReadRoadmapResponseDto zero(Lecture lecture, String professorName) {
-        return ReadRoadmapResponseDto.builder()
-                .lectureInfo(LectureInfoDto.zero(lecture, professorName))
+    public static ReadLastUpdatedRoadmapResponseDto zero(Lecture lecture, String professorName) {
+        return ReadLastUpdatedRoadmapResponseDto.builder()
+                .lectureInfo(ReadLastUpdatedRoadmapResponseDto.LectureInfoDto.zero(lecture, professorName))
                 .build();
     }
 }

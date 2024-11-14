@@ -20,4 +20,6 @@ public interface WeekRepository extends JpaRepository<Week, Long> {
     List<Week> findAllByLectureId(@Param("lectureId") Long lectureId);
 
     int countByLecture(Lecture lecture);
+
+    Optional<Week> findByLectureOrderByCreatedAtDesc(Lecture lecture);
 }
