@@ -1,4 +1,5 @@
 ### 내 과목 조회하기 (전체 조회 포함)
+//@no-log
 GET {{host_url}}/v1/lectures/overviews?
     page={{roadmap.API_3_6.page}}&
     size={{roadmap.API_3_6.size}}
