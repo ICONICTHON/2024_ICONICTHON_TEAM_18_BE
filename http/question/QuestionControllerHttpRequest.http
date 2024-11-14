@@ -2,3 +2,8 @@
 //@no-log
 GET {{host_url}}/v1/questions?id=1&week=1
 Authorization: Bearer {{access_token}}
+
+### 4.2 답변 리스트 조회하기
+//@no-log
+GET {{host_url}}/v1/questions/2/replies
+Authorization: Bearer {{access_token}}
