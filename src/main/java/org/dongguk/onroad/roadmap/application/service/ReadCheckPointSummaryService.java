@@ -26,7 +26,7 @@ public class ReadCheckPointSummaryService implements ReadCheckPointSummaryUseCas
     public ReadCheckPointSummaryResponseDto execute(Long subtopicId) {
 
         // 서브토픽에 해당하는 체크포인트 리스트 조회
-        List<CheckPoint> checkPointList = checkPointRepository.findBySubtopicId(subtopicId);
+        List<CheckPoint> checkPointList = checkPointRepository.findAllBySubtopicId(subtopicId);
 
         // 서브토픽 조회
         Subtopic subtopic = subtopicRepository.findById(subtopicId)

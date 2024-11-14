@@ -54,6 +54,7 @@ public class ReadRoadmapService implements ReadRoadmapUseCase {
 
         // Week List 조회 및 Dto 변환
         List<Week> weeks = weekRepository.findAllByLectureId(lectureId);
+
         List<ReadRoadmapResponseDto.WeekInfoDto> weekInfoDtos = weeks.stream()
                 .map(week -> {
                     List<Section> weekSections = weekSectionMap.getOrDefault(week, List.of());
