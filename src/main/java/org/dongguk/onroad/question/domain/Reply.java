@@ -29,9 +29,6 @@ public class Reply {
     @Column(nullable = false)
     private String content;
 
-    @Column(name = "img_url")
-    private String imgUrl;
-
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
@@ -53,9 +50,8 @@ public class Reply {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Reply(String content, String imgUrl, User user, Question question) {
+    public Reply(String content, User user, Question question) {
         this.content = content;
-        this.imgUrl = imgUrl;
         this.user = user;
         this.question = question;
         this.createdAt = LocalDateTime.now();

@@ -35,9 +35,6 @@ public class Question {
     @Column(nullable = false)
     private String content;
 
-    @Column(name = "img_url")
-    private String imgUrl;
-
     @Column(name = "week_index", nullable = false)
     private Integer weekIndex;
 
@@ -68,10 +65,9 @@ public class Question {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Question(String title, String content, String imgUrl, Integer weekIndex, Lecture lecture, User student) {
+    public Question(String title, String content, Integer weekIndex, Lecture lecture, User student) {
         this.title = title;
         this.content = content;
-        this.imgUrl = imgUrl;
         this.weekIndex = weekIndex;
         this.lecture = lecture;
         this.student = student;
