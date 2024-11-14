@@ -27,10 +27,10 @@ public class Section {
     @Column(name = "week_index", nullable = false)
     private Integer weekIndex;
 
-    @Column(length = 200, nullable = false)
+    @Column(name = "title", length = 200, nullable = false)
     private String title;
 
-    @Column(length = 500, nullable = false)
+    @Column(name = "description", length = 500, nullable = false)
     private String description;
 
     /* -------------------------------------------- */
@@ -43,18 +43,18 @@ public class Section {
     /* Many To One Mapping ------------------------ */
     /* -------------------------------------------- */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_id", nullable = false)
-    private Lecture lecture;
+    @JoinColumn(name = "week_id", nullable = false)
+    private Week week;
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Section(Integer weekIndex, String title, String description, Lecture lecture) {
+    public Section(Integer weekIndex, String title, String description, Week week) {
         this.weekIndex = weekIndex;
         this.title = title;
         this.description = description;
-        this.lecture = lecture;
+        this.week = week;
         this.createdAt = LocalDateTime.now();
     }
 }
