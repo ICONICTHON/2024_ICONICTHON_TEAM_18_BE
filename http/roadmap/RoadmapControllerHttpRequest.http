@@ -23,7 +23,7 @@ Authorization: Bearer {{access_token}}
 
 ### 퀴즈 리스트 조회하기
 //@no-log
-GET {{host_url}}/v1/subtopics/1/check-points/quizzes/choices/summaries
+GET {{host_url}}/v1/subtopics/11/check-points/quizzes/choices/summaries
 Authorization: Bearer {{access_token}}
 
 
@@ -50,7 +50,7 @@ Authorization: Bearer {{access_token}}
 Content-Disposition: form-data; name="file"; filename="pdf1.pdf"
 Content-Type: application/pdf
 
-< /Users/jjuuuunnii/Desktop/Lecture4_AI.pdf
+< /Users/jjuuuunnii/Developments/on_road/dummy_data/10.pdf
 
 --boundary
 
@@ -78,7 +78,76 @@ Content-Type: application/json
   ]
 }
 
+
+### 퀴즈 생성하기
+//@no-log
+POST {{host_url}}/v1/quizzes
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "quiz_list": [
+    {
+      "id": 1,
+      "content": "다음 중 REST API의 특징이 아닌 것은 무엇인가?",
+      "choice_list": [
+        {
+          "content": "무상태성",
+          "is_answer": false
+        },
+        {
+          "content": "클라이언트-서버 구조",
+          "is_answer": false
+        },
+        {
+          "content": "상태 저장성",
+          "is_answer": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "content": "Java의 메모리 영역 중 힙(heap) 영역에 저장되지 않는 것은?",
+      "choice_list": [
+        {
+          "content": "객체 인스턴스",
+          "is_answer": false
+        },
+        {
+          "content": "정적(static) 변수",
+          "is_answer": true
+        },
+        {
+          "content": "배열",
+          "is_answer": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "content": "HTTP 메서드 중 데이터를 생성하기 위한 메서드는?",
+      "choice_list": [
+        {
+          "content": "GET",
+          "is_answer": false
+        },
+        {
+          "content": "POST",
+          "is_answer": true
+        },
+        {
+          "content": "DELETE",
+          "is_answer": false
+        }
+      ]
+    }
+  ]
+}
+
+
 ### 최근 추가된 로드맵 조회하기
 //@no-log
 GET {{host_url}}/v1/roadmaps/created-at
 Authorization: Bearer {{access_token}}
+
+
