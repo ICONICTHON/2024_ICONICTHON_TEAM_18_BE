@@ -49,9 +49,10 @@ public class RoadmapQueryV1Controller {
 
     @GetMapping("/v1/lectures/{id}/roadmaps")
     public ResponseDto<ReadRoadmapResponseDto> readRoadmap(
+            @UserID UUID userId,
             @PathVariable Long id
     ) {
-        return ResponseDto.ok(readRoadmapUseCase.execute(id));
+        return ResponseDto.ok(readRoadmapUseCase.execute(userId, id));
     }
 
     @GetMapping("/v1/subtopics/{id}/check-points/summaries")

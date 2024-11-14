@@ -3,6 +3,8 @@ package org.dongguk.onroad.roadmap.application.usecase;
 import org.dongguk.onroad.core.annotation.bean.UseCase;
 import org.dongguk.onroad.roadmap.application.dto.response.ReadRoadmapResponseDto;
 
+import java.util.UUID;
+
 @UseCase
 public interface ReadRoadmapUseCase {
     /**
@@ -10,5 +12,5 @@ public interface ReadRoadmapUseCase {
      * @param lectureId Roadmap ID
      * @return RoadmapDto
      */
-    ReadRoadmapResponseDto execute(Long lectureId);
+    ReadRoadmapResponseDto execute(UUID userId, Long lectureId);
 }
